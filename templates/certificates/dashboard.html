@@ -1,0 +1,10 @@
+{% extends "base.html" %}{% block title %}Dashboard — GovCert Verify{% endblock %}
+{% block content %}<div class="page-heading"><div><div class="eyebrow">YOUR WORKSPACE</div><h1>Hello, {{ user.username }} 👋</h1><p class="muted">Upload a document to begin a guided review.</p></div><div class="count-card"><strong>{{ total }}</strong><span>documents reviewed</span></div></div>
+<div class="dashboard-grid"><section class="panel upload-panel"><h2>Upload a document</h2><p class="muted">Choose the type, add a file, and start the review.</p>
+<form method="post" enctype="multipart/form-data">{% csrf_token %}
+{% for field in form %}<div class="field"><label for="{{ field.id_for_label }}">{{ field.label }}</label>{{ field }}{% if field.errors %}<div class="errors">{{ field.errors }}</div>{% endif %}</div>{% endfor %}
+<div class="file-hint">Accepted: PDF, JPG, PNG, WEBP, DOC/DOCX, PPT/PPTX, TXT · Max 10 MB</div>
+<button class="button primary full" type="submit">Start document review →</button></form></section>
+<section class="panel"><div class="section-title"><h2>Recent documents</h2><a href="{% url 'history' %}">View all</a></div>
+{% if documents %}<div class="doc-list">{% for doc in documents %}<a class="doc-row" href="{% url 'document_detail' doc.pk %}"><span class="doc-icon">▤</span><span class="doc-info"><b>{{ doc.title }}</b><small>{{ doc.get_document_type_display }} · {{ doc.uploaded_at|date:"d M Y, H:i" }}</small></span><span class="arrow">›</span></a>{% endfor %}</div>{% else %}<div class="empty"><span>🗂️</span><b>No documents yet</b><p>Your uploaded documents will appear here.</p></div>{% endif %}</section></div>
+<div class="notice"><b>Important:</b> These are preliminary checks, not proof of authenticity. Confirm documents through the relevant government department.</div>{% endblock %}

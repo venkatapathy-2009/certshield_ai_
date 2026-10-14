@@ -1,0 +1,19 @@
+{% extends "base.html" %}{% block title %}GovCert Verify — Document review{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-copy"><div class="eyebrow">SIMPLE · SAFE · ACCESSIBLE</div>
+  <h1>Check your document.<br><span>Know what to do next.</span></h1>
+  <p>Upload a government certificate to run basic document checks and get a clear review report. This MVP checks basic file properties and extracts text where possible. Official authenticity must be confirmed by the issuing authority.</p>
+  <div class="actions"><a class="button primary" href="{% url 'register' %}">Get started <span>→</span></a><a class="button secondary" href="{% url 'login' %}">I already have an account</a></div>
+  <div class="safe-note">🔒 Your uploads are linked to your account.</div></div>
+  <div class="hero-card"><div class="shield">✓</div><h3>Document review</h3><p class="muted">Basic checks and text extraction</p>
+  <div class="step"><span>1</span><div><b>Upload</b><small>Choose a document</small></div></div>
+  <div class="step"><span>2</span><div><b>Review</b><small>See basic checks</small></div></div>
+  <div class="step"><span>3</span><div><b>Confirm</b><small>Contact the issuer</small></div></div></div>
+</section>
+<section class="features"><h2>Designed for everyone</h2><div class="feature-grid">
+<div class="feature"><span>📄</span><h3>Many document types</h3><p>Birth certificates, marksheets, income certificates and more.</p></div>
+<div class="feature"><span>🧭</span><h3>Easy-to-read results</h3><p>Plain-language findings and clear next steps.</p></div>
+<div class="feature"><span>🗂️</span><h3>Your history</h3><p>Return to previous uploads whenever you need them.</p></div>
+</div></section>
+{% endblock %}

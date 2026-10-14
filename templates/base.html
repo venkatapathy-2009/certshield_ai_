@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}GovCert Verify{% endblock %}</title>
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="{% url 'home' %}"><span class="brand-icon">✓</span> GovCert <b>Verify</b></a>
+  <nav>
+    {% if user.is_authenticated %}
+      <a href="{% url 'dashboard' %}">Dashboard</a><a href="{% url 'history' %}">My history</a>
+      <span class="username">{{ user.username }}</span>
+      <form class="inline" method="post" action="{% url 'logout' %}">{% csrf_token %}<button class="nav-button" type="submit">Log out</button></form>
+    {% else %}
+      <a href="{% url 'login' %}">Log in</a><a class="nav-cta" href="{% url 'register' %}">Create account</a>
+    {% endif %}
+  </nav>
+</header>
+<main class="page">
+{% if messages %}<div class="messages">{% for message in messages %}<div class="message">{{ message }}</div>{% endfor %}</div>{% endif %}
+{% block content %}{% endblock %}
+</main>
+<footer>GovCert Verify · Hackathon prototype · AI results require official confirmation.</footer>
+</body></html>

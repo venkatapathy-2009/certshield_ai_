@@ -1,0 +1,10 @@
+{% extends "base.html" %}{% block title %}Review report — CertShield{% endblock %}
+{% block content %}<a class="back-link" href="{% url 'dashboard' %}">← Back to dashboard</a>
+<div class="report-head"><div><div class="eyebrow">CERTSHIELD · DOCUMENT REVIEW</div><h1>{{ doc.title }}</h1><p class="muted">{{ doc.get_document_type_display }} · Uploaded {{ doc.uploaded_at|date:"d M Y, H:i" }}</p></div><span class="status large">{{ doc.get_status_display }}</span></div>
+<section class="panel"><div class="score-line"><div><div class="eyebrow">PRELIMINARY RISK INDICATOR</div><strong class="risk-number">{{ doc.risk_score }}<small>/100</small></strong></div><div class="score-track"><span style="width:{{ doc.risk_score }}%"></span></div></div><p>{{ doc.analysis_summary }}</p>
+<div class="report-file"><span>📄</span><div><b>{{ doc.file.name|cut:"certificate_uploads/" }}</b><small>SHA-256: {{ doc.sha256 }}</small></div><a href="{{ doc.file.url }}" target="_blank" rel="noopener">Open file ↗</a></div></section>
+<section class="panel checks-panel"><h2>Checks and evidence</h2>{% for check in doc.checks %}<div class="check-row"><span class="check-mark">{% if check.ok %}✓{% else %}i{% endif %}</span><div><b>{{ check.label }}</b><p>{{ check.result }}</p></div></div>{% endfor %}</section>
+{% if doc.extracted_text %}<section class="panel"><h2>Extracted text preview</h2><p class="muted">Check this text carefully; OCR and PDF extraction can make mistakes.</p><pre class="extracted">{{ doc.extracted_text }}</pre></section>{% endif %}
+{% if doc.reviewer_note %}<section class="panel"><h2>Reviewer note</h2><p>{{ doc.reviewer_note }}</p></section>{% endif %}
+<div class="notice warning"><b>Important:</b> The risk indicator is not a probability and is not proof that a certificate is fake or genuine. Official record matching and human review are not connected automatically. Confirm the document through a trusted official issuer channel.</div>
+<div class="actions"><a class="button primary" href="{% url 'dashboard' %}">Review another document</a><a class="button secondary" href="{% url 'history' %}">View history</a></div>{% endblock %}
